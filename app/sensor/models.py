@@ -16,7 +16,8 @@ class User(AbstractUser):
 
 class Enviroment(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nome')
-    description = models.CharField(max_length=200, default= '', verbose_name='Descrição', blank=True)
+    description = models.CharField(
+        max_length=200, default='', verbose_name='Descrição', blank=True)
 
     class Meta:
         verbose_name = 'Ambiente'
@@ -25,26 +26,21 @@ class Enviroment(models.Model):
 
 class Board(models.Model):
     name = models.CharField(max_length=30, verbose_name='Placa')
-    description = models.CharField(max_length=250, default= '', verbose_name='Descrição', blank=True)
+    description = models.CharField(
+        max_length=250, default='', verbose_name='Descrição', blank=True)
 
     class Meta:
         verbose_name = 'Placa'
         verbose_name_plural = 'Placas'
 
 
-class Type(models.Model):
-    typeDate = models.CharField(max_length=10, verbose_name='Tipo')
-    unity = models.CharField(max_length=10, verbose_name='Unidade')
-
-    class Meta:
-        verbose_name = 'Tipo'
-        verbose_name_plural = 'Tipos'
-
-
 class Sensor(models.Model):
-    description = models.CharField(max_length=255, default= '', verbose_name='Descrição', blank=True)
+    description = models.CharField(
+        max_length=255, default='', verbose_name='Descrição', blank=True)
     board = models.ForeignKey(Board, on_delete=models.PROTECT)
     type_sensor = models.ForeignKey(Type, on_delete=models.PROTECT)
+    typeDate = models.CharField(max_length=10, verbose_name='Tipo')
+    unity = models.CharField(max_length=10, verbose_name='Unidade')
 
     class Meta:
         verbose_name = 'Sensor'
@@ -52,7 +48,7 @@ class Sensor(models.Model):
 
 
 class Data(models.Model):
-    value = models.CharField(max_length=100,verbose_name='Valor')
+    value = models.CharField(max_length=100, verbose_name='Valor')
     date = models.DateField(max_length=100, verbose_name='Data')
     sensor = models.ForeignKey(Sensor, on_delete=models.PROTECT, blank=True)
 
